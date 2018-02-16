@@ -21,7 +21,7 @@ We will attempt to post all materials presented at these meetings, see below for
 Feb 16, 2018
 
 * https://www.meetup.com/BiocNYC/events/247121601/
-* Materials to come
+* Materials at https://github.com/ThomasCarroll/ATAC_Workshop
 
 The use of ChIP-seq, DNA-seq and MNAse-seq to identify transcription factor binding, open chromatin and nucleosome positions respectively has led to a broader understanding of epigenetic events across the genome. ATAC-seq (Assay for Transposase Accessible Chromatin with high-throughput sequencing) offers a method to rapidly and simultaneously identify openchromatin, nucleosome positioning and transcription factor binding at a genome scale. In this session, we will review the alignment, pre-processing and peak calling of ATAC-seq data in R/Bioconductor and will perform quality control, identification of replicated peaks, annotation of peaks to genes and visualization of ATAC-seq data in IGV.
 
@@ -34,6 +34,7 @@ Audrey Renson, Lucas Schiffer, Levi Waldron
 
 * https://www.meetup.com/BiocNYC/events/243813429/ 
 * Materials at https://github.com/waldronlab/MicrobiomeWorkshop/tree/BiocNYC-2017-12-15
+* short-cut gists to [install needed packages](https://gist.github.com/lwaldron/220828bae0764a80fcf3a23868bf182e) and [download essential data](https://gist.github.com/lwaldron/c1e44d0516422777e3f87d6726d45332).
 
 Bioconductor provides significant resources for microbiome data acquisition, analysis, and visualization. This workshop introduces the common analyses of differential abundance and ordination using the phyloseq, edgeR, and DESeq2. It will utilize the curatedMetagenomicData package, a resource providing uniformly processed taxonomic and metabolic functional profiles for more than 6,000 whole metagenome shotgun sequencing samples from 26 publicly available studies, including the Human Microbiome Project. At the end of this workshop, users will be able to access publicly available metagenomic data and to perform differential abundance tests, ordination, and visualization of microbiome data in R/Bioconductor.
 
