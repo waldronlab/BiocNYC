@@ -10,7 +10,7 @@ Table of Contents
 
 # About BiocNYC
 
-BiocNYC is a group of people with an interest in R/Bioconductor for genomics, based in New York City. It is currently organized primarily by [Levi Waldron of CUNY SPH](www.waldronlab.org), [Davide Risso](http://vivo.med.cornell.edu/display/cwid-dar2062) of Weill Cornell Medical College, [Archana Iyer](https://www.mskcc.org/research-areas/programs-centers/cancer-systems-immunology/contact-us) of MSKCC, and [Thomas Carroll](https://github.com/ThomasCarroll) of Rockefeller University. See https://www.meetup.com/BiocNYC for more information.
+BiocNYC is a group of people with an interest in R/Bioconductor for genomics, based in New York City. It is currently organized primarily by [Levi Waldron of CUNY SPH](http://waldronlab.com), [Davide Risso](http://vivo.med.cornell.edu/display/cwid-dar2062) of Weill Cornell Medical College, [Archana Iyer](https://www.mskcc.org/research-areas/programs-centers/cancer-systems-immunology/contact-us) of MSKCC, and [Thomas Carroll](https://github.com/ThomasCarroll) of Rockefeller University. See https://www.meetup.com/BiocNYC for more information.
 
 We will attempt to post all materials presented at these meetings, see below for links. It's our intention to post videos as well, although technical issues have gotten in the way of several past meetings.
 
