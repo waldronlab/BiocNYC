@@ -279,9 +279,6 @@ on a log-scale for 12,625 probes (rows) across 79 patients (columns).
 
 ```{R}
 dim(all.eset)
-```
-
-```{R}
 exprs(all.eset)[1:4,1:4]
 ```
 
@@ -290,8 +287,8 @@ as the average of the corresponding probe values.
 
 
 ```{R}
-all.eset <- probe.2.gene.eset(all.eset) 
-head(names(all.eset))
+allSE <- probe2gene(all.eset) 
+head(names(allSE))
 ```
 
 For RNA-seq data, we consider transcriptome profiles of four primary human
@@ -313,12 +310,12 @@ For further analysis, we only keep genes that are annotated to an ENSEMBL gene I
 
 
 ```{R}
-air.eset <- airway[grep("^ENSG", names(airway)), ]
-dim(air.eset)
+airSE <- airway[grep("^ENSG", names(airway)), ]
+dim(airSE)
 ```
 
 ```{R}
-assay(air.eset)[1:4,1:4]
+assay(airSE)[1:4,1:4]
 ```
 
 ## Differential expression analysis
@@ -343,7 +340,7 @@ carried out based on the negative binomial distribution with
 and
 [DESeq2](http://bioconductor.org/packages/DESeq2).
 
-This can be performed using the function `EnrichmentBrowser::de.ana`
+This can be performed using the function `EnrichmentBrowser::deAna`
 and assumes some standardized variable names:
  
 - **GROUP** defines the sample groups being contrasted,
@@ -358,8 +355,8 @@ fusion is present (1) or not (0).
 
 
 ```{R}
-all.eset$GROUP <- ifelse(all.eset$mol.biol == "BCR/ABL", 1, 0)
-table(all.eset$GROUP)
+allSE$GROUP <- ifelse(allSE$mol.biol == "BCR/ABL", 1, 0)
+table(allSE$GROUP)
 ```
 
 For the airway dataset, it indicates whether the cell lines have been treated
@@ -367,8 +364,8 @@ with dexamethasone (1) or not (0).
 
 
 ```{R}
-air.eset$GROUP <- ifelse(colData(airway)$dex == "trt", 1, 0)
-table(air.eset$GROUP)
+airSE$GROUP <- ifelse(colData(airway)$dex == "trt", 1, 0)
+table(airSE$GROUP)
 ```
 
 Paired samples, or in general sample batches/blocks, can be defined via a
@@ -377,25 +374,25 @@ correspond to the four different cell lines.
 
 
 ```{R}
-air.eset$BLOCK <- airway$cell
-table(air.eset$BLOCK)
+airSE$BLOCK <- airway$cell
+table(airSE$BLOCK)
 ```
 
-For microarray data, the `EnrichmentBrowser::de.ana` function carries out
+For microarray data, the `EnrichmentBrowser::deAna` function carries out
 differential expression analysis based on functionality from the
 *limma* package. Resulting log2 fold changes and *t*-test derived
 *p*-values for each gene are appended to the `rowData` slot.
 
 
 ```{R}
-all.eset <- de.ana(all.eset)
-rowData(all.eset, use.names=TRUE)
+allSE <- deAna(allSE)
+rowData(allSE, use.names=TRUE)
 ```
 
 Nominal *p*-values are already corrected for multiple testing (`ADJ.PVAL`)
 using the method from Benjamini and Hochberg implemented in `stats::p.adjust`.
 
-For RNA-seq data, the `de.ana` function can be used to carry out differential 
+For RNA-seq data, the `deAna` function can be used to carry out differential 
 expression analysis between the two groups either based on functionality from
 *limma* (that includes the `voom` transformation), or
 alternatively, the frequently used *edgeR* or *DESeq2*
@@ -403,15 +400,15 @@ package. Here, we use the analysis based on *edgeR*.
 
 
 ```{R}
-air.eset <- de.ana(air.eset, de.method="edgeR")
+airSE <- deAna(airSE, de.method="edgeR")
 ```
 
 
 ```{R}
-rowData(air.eset, use.names=TRUE)
+rowData(airSE, use.names=TRUE)
 ```
 
-*Exercise:* Compare the number of differentially expressed genes as obtained on the `air.eset` with `limma/voom`, `edgeR`, and `DESeq2`. 
+*Exercise:* Compare the number of differentially expressed genes as obtained on the `airSE` with `limma/voom`, `edgeR`, and `DESeq2`. 
 
 
 ## Gene sets
@@ -419,34 +416,37 @@ rowData(air.eset, use.names=TRUE)
 We are now interested in whether pre-defined sets of genes that are known to 
 work together, e.g. as defined in the [Gene Ontology](http://www.geneontology.org) 
 or the [KEGG](http://www.genome.jp/kegg) pathway annotation, are coordinately 
-differentially expressed. The function `get.kegg.genesets` downloads all KEGG 
-pathways for a chosen organism (here: *Homo sapiens*) as gene sets using NCBI 
-Entrez Gene IDs.
+differentially expressed. 
 
+The function `getGenesets` can be used to download gene sets from databases such
+as GO and KEGG. 
+Here, we use the function to download all KEGG pathways for a chosen organism
+(here: \emph{Homo sapiens}) as gene sets.
 
 ```{R}
-kegg.gs <- get.kegg.genesets("hsa")
+kegg.gs <- getGenesets(org="hsa", db="kegg")
 ```
 
-Analogously, the function `get.go.genesets` retrieves GO terms of a selected
-ontology (here: biological process, BP) as defined in the *GO.db*
+Analogously, the function `getGenesets` can be used to retrieve GO terms of a 
+selected ontology (here: biological process, BP) as defined in the *GO.db*
 annotation package.
 
 
 ```{R}
-go.gs <- get.go.genesets(org="hsa", onto="BP", mode="GO.db")
+go.gs <- getGenesets(org="hsa", db="go", go.onto="BP", go.mode="GO.db")
 ```
 
-User-defined gene sets can be parsed from GMT file format.
-Here, we are using this functionality for reading a list of already downloaded
+If provided a file, the function `getGenesets` parses user-defined gene sets
+from GMT file format.
+Here, we use this functionality for reading a list of already downloaded
 KEGG gene sets for *Homo sapiens* containing NCBI Entrez Gene IDs.
 
 
 ```{R}
 data.dir <- system.file("extdata", package="EnrichmentBrowser")
 gmt.file <- file.path(data.dir, "hsa_kegg_gs.gmt")
-hsa.gs <- parse.genesets.from.GMT(gmt.file)
-length(hsa.gs)
+hsa.gs <- getGenesets(gmt.file)
+hsa.gs[1:2]
 ```
 
 
@@ -470,19 +470,19 @@ Here, we choose a significance level $\alpha = 0.2$ for demonstration.
 
 
 ```{R}
-ora.all <- sbea(method="ora", eset=all.eset, gs=hsa.gs, perm=0, alpha=0.2)
-gs.ranking(ora.all)
+ora.all <- sbea(method="ora", se=allSE, gs=hsa.gs, perm=0, alpha=0.2)
+gsRanking(ora.all)
 ```
 
 Such a ranked list is the standard output of most existing enrichment tools.
-Using the `ea.browse` function creates a HTML summary from which each
+Using the `eaBrowse` function creates a HTML summary from which each
 gene set can be inspected in more detail.
 
 <img src="https://github.com/waldronlab/BrownCOBRE2018/blob/master/notebooks_day2/EnrichmentBrowserNavigation.png?raw=true", alt="EnrichmentBrowserNavigation image", style="width:600px">
 
 
 ```{R}
-ea.browse(ora.all)
+eaBrowse(ora.all)
 ```
 
 The resulting summary page includes for each significant gene set
@@ -501,12 +501,12 @@ we first map the airway dataset to Entrez IDs.
 
 
 ```{R}
-air.eset <- map.ids(air.eset, org="hsa", from="ENSEMBL", to="ENTREZID")
+airSE <- idMap(airSE, org="hsa", from="ENSEMBL", to="ENTREZID")
 ```
 
 ```{R}
-ora.air <- sbea(method="ora", eset=air.eset, gs=hsa.gs, perm=0)
-gs.ranking(ora.air)
+ora.air <- sbea(method="ora", se=airSE, gs=hsa.gs, perm=0)
+gsRanking(ora.air)
 ```
 
 Note #1: [Young et al., 2010](https://doi.org/10.1186/gb-2010-11-2-r14), have
@@ -547,11 +547,11 @@ enrichment score against it. Here, we carry out GSEA with 1000 permutations.
 
 
 ```{R}
-gsea.all <- sbea(method="gsea", eset=all.eset, gs=hsa.gs, perm=1000)  
+gsea.all <- sbea(method="gsea", se=allSE, gs=hsa.gs, perm=1000)  
 ```
 
 ```{R}
-gs.ranking(gsea.all)
+gsRanking(gsea.all)
 ```
 
 As GSEA's permutation procedure involves re-computation of per-gene DE
@@ -564,7 +564,7 @@ permutations having used edgeR for DE analysis.
 
 
 ```{R}
-gsea.air <- sbea(method="gsea", eset=air.eset, gs=hsa.gs, perm=100)  
+gsea.air <- sbea(method="gsea", se=airSE, gs=hsa.gs, perm=100)  
 ```
 
 While it might be in some cases necessary to apply permutation-based GSEA for
@@ -574,18 +574,18 @@ ROtAtion gene Set Testing (ROAST), which uses rotation instead of permutation
 
 
 ```{R}
-roast.air <- sbea(method="roast", eset=air.eset, gs=hsa.gs)
-gs.ranking(roast.air)  
+roast.air <- sbea(method="roast", se=airSE, gs=hsa.gs)
+gsRanking(roast.air)  
 ```
 
 A selection of additional methods is also available:
 
 
 ```{R}
-sbea.methods()
+sbeaMethods()
 ```
 
-*Exercise*: Carry out a GO overrepresentation analysis for the `all.eset` and `air.eset`. How many significant gene sets do you observe in each case?
+*Exercise*: Carry out a GO overrepresentation analysis for the `allSE` and `airSE`. How many significant gene sets do you observe in each case?
 
 
 ## Network-based enrichment analysis
@@ -607,19 +607,11 @@ well-annotated regulatory networks are available, e.g. the
 
 However, there are also cases where such a network is missing or at least
 incomplete.
-A basic workaround is to compile a network from regulations in the KEGG
-database.
-
-We can download all KEGG pathways of a specified organism (here: *Homo sapiens*)
-via
-
-But for demonstration purposes, we use a selection of already downloaded human 
-KEGG pathways:
-
+A basic workaround is to compile a network from regulations in pathway databases
+such as KEGG.
 
 ```{R}
-pwys <- file.path(data.dir, "hsa_kegg_pwys.zip")
-hsa.grn <- compile.grn.from.kegg(pwys)
+hsa.grn <- compileGRN(org="hsa", db="kegg")
 head(hsa.grn)
 ```
 
@@ -631,8 +623,8 @@ topology in combination with ORA.
 
 
 ```{R}
-spia.all <- nbea(method="spia", eset=all.eset, gs=hsa.gs, grn=hsa.grn, alpha=0.2)
-gs.ranking(spia.all)
+spia.all <- nbea(method="spia", se=allSE, gs=hsa.gs, grn=hsa.grn, alpha=0.2)
+gsRanking(spia.all)
 ```
 
 More generally applicable is gene graph enrichment analysis (GGEA), which
@@ -642,12 +634,12 @@ the observed expression data
 
 
 ```{R}
-ggea.all <- nbea(method="ggea", eset=all.eset, gs=hsa.gs, grn=hsa.grn)
-gs.ranking(ggea.all)
+ggea.all <- nbea(method="ggea", se=allSE, gs=hsa.gs, grn=hsa.grn)
+gsRanking(ggea.all)
 ```
 
 ```{R}
-nbea.methods()
+nbeaMethods()
 ```
 
 Note #1: As network-based enrichment methods typically do not involve sample
@@ -662,7 +654,7 @@ gene sets accumulating evidence from different methods
 [Geistlinger et al., 2016](https://doi.org/10.1186/s12859-016-0884-1),
 [Alhamdoosh et al., 2017](https://doi.org/10.1093/bioinformatics/btw623). 
 
-The function `comb.ea.results` implements the straightforward combination of
+The function `combResults` implements the straightforward combination of
 results, thereby facilitating seamless comparison of results across methods.
 For demonstration, we use the ORA and GSEA results for the ALL dataset from the 
 previous section:
@@ -670,11 +662,11 @@ previous section:
 
 ```{R}
 res.list <- list(ora.all, gsea.all)
-comb.res <- comb.ea.results(res.list)
-gs.ranking(comb.res)
+comb.res <- combResults(res.list)
+gsRanking(comb.res)
 ```
 
-*Exercise:* Carry out `SPIA` and `GGEA` for the `air.eset` and combine the results. How many gene sets are rendered significant by both methods? 
+*Exercise:* Carry out `SPIA` and `GGEA` for the `airSE` and combine the results. How many gene sets are rendered significant by both methods? 
 
 # Genomic region enrichment analysis
 
@@ -752,13 +744,11 @@ region set (`per.chromosome=TRUE`). Furthermore, we use the option
 `count.once=TRUE` to count an overlapping CpG island only once, even if it
 overlaps with 2 or more promoters. 
 
-This takes about 2 minutes on a standard laptop. It also takes too much memory for the machines used by the workshop, so the command is commented out and the object loaded from file instead.
-
+Note that we use 100 permutations for demonstration only. 
+To draw robust conclusions a minimum of 1000 permutations should be carried out.
 
 ```{R}
-# pt <- overlapPermTest(cpg, prom, genome="hg19", ntimes=100, per.chromosome=TRUE, count.once=TRUE)
-download.file("https://www.dropbox.com/s/dlqq0m99wpu5xab/BrownCOBREDay2Session3_pt.rds?raw=1", destfile="BrownCOBREDay2Session3_pt.rds")
-pt <- readRDS("BrownCOBREDay2Session3_pt.rds")
+pt <- overlapPermTest(cpg, prom, genome="hg19", ntimes=50, per.chromosome=TRUE, count.once=TRUE)
 pt
 ```
 
