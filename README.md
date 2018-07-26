@@ -4,6 +4,7 @@ Table of Contents
    * [About BiocNYC](#about-biocnyc)
    * [Meet-ups](#meet-ups)
       * [Workflow for Multi-omics Data Analysis by Levi Waldron](#workflow-for-multi-omics-data-analysis-by-levi-waldron)
+      * [ChIPSeqSpike: ChIP-Seq data scaling according to spike-in control by Dr. Nicolas Descoste](#chipseqspike-chip-seq-data-scaling-according-to-spike-in-control-by-dr-nicolas-descoste)
       * [Analysis of ATAC-seq data in R/Bioconductor by Thomas Carroll](#analysis-of-atac-seq-data-in-rbioconductor-by-thomas-carroll)
       * [Microbiome data analysis by the Waldron lab](#microbiome-data-analysis-by-the-waldron-lab)
       * [RNA-seq differential expression with Bioconductor by Davide Risso](#rna-seq-differential-expression-with-bioconductor-by-davide-risso)
@@ -21,16 +22,23 @@ We will attempt to post all materials presented at these meetings, see below for
 
 July 20, 2018
 
+* https://www.meetup.com/BiocNYC/events/251719874/
+* Materials: https://github.com/waldronlab/MultiAssayExperimentWorkshop
+
 This workshop describes an ecosystem of packages and databases for multi-omics data analysis. This includes: 1) MultiAssayExperiment for the representation of multi-omics experiments, 2) SummarizedExperiment for matrix-like datasets, 3) RaggedExperiment for non matrix-like datasets such as SNPs, different types of somatic variants, and segmented copy number, 4) curatedTCGAData, which provides unrestricted 'omics data with merged clinical, pathological, specimen, and subtype data of TCGA as MultiAssayExperiment objects customizable to contain only what you need, 5) TCGAUtils for simplifying common tasks of working TCGA data such as ID-mapping and specimen-type lookup, and 6) MultiAssayExperimentData, under development to provide other integrated multi-omics cancer data starting with 213 cBioPortal datasets.
 
-Materials for tonight's workshop are now available at https://github.com/waldronlab/MultiAssayExperimentWorkshop, with a built version of the workshop at http://rpubs.com/lwaldron/MAEWorkshop. The above give instructions for installing all needed packages for the workshop. Assuming you have already installed Bioconductor (www.bioconductor.org/install), you can do:
+## ChIPSeqSpike: ChIP-Seq data scaling according to spike-in control by Dr. Nicolas Descoste
 
-```
-> BiocInstaller::biocLite(c("curatedTCGAData", "mirbase.db", "EnsDb.Hsapiens.v86"))
-> BiocInstaller::biocLite("waldronlab/MultiAssayExperimentWorkshop")
-```
+April 19, 2018
 
-Note that the workshop is developed on the development version of Bioconductor, but most (except for some of the TCGAutils functionality) will also work on the release version. 
+* https://github.com/lwaldron/BiocNYC-ChIPSeqSpike
+* Materials at https://github.com/descostesn/BiocNYC-ChIPSeqSpike
+
+Chromatin Immuno-Precipitation followed by Sequencing (ChIP-Seq) is used to determine the binding sites of any protein of interest, such as transcription factors or histones with or without a specific modification, at a genome scale. The many steps of the protocol can introduce biases that make ChIP-Seq more qualitative than quantitative. For instance, it was shown that global histone modification differences are not caught by traditional downstream data normalization techniques. A case study reported no differences in histone H3 lysine-27 trimethyl (H3K27me3) upon Ezh2 inhibitor treatment. To tackle this problem, external spike-in control were used to keep track of technical biases between conditions. Exogenous DNA from a different non-closely related species was inserted during the protocol to infer scaling factors that enabled an accurate normalization, thus revealing the inhibitor effect. ChIPSeqSpike offers tools for ChIP-Seq spike-in normalization. Ready to use scaled bigwig files and scaling factors values are obtained as output. ChIPSeqSpike also provides tools for ChIP-Seq spike-in assessment and analysis through a versatile collection of graphical functions. ChIPSeqSpike is newly released in the development version of Bioconductor, with a pre-print available at https://www.biorxiv.org/content/early/2018/02/22/269118.
+
+About the speaker:
+
+This workshop will be led by Dr. Nicolas Descoste, author of the ChIPSeqSpike Bioconductor package. Dr. Descoste earned a PhD in Bioinformatics and Genomics at the Centre d'Immunologie de Marseille-Luminy, France. During his PhD, Dr. Descoste studied fundamental transcriptional processes focusing on RNA Polymerase II c-terminal domain. To better understand the inner workings of the genome in terms of mechanistic expression of genes, he joined Danny Reinberg's research group in 2015 as a postdoctoral fellow at New York University. His research focuses on bioinformatic solutions to the study epigenetic mechanisms and transcriptional regulation.
 
 ## Analysis of ATAC-seq data in R/Bioconductor by Thomas Carroll
 
