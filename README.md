@@ -3,6 +3,7 @@ Table of Contents
 
    * [About BiocNYC](#about-biocnyc)
    * [Meet-ups](#meet-ups)
+      * [Workflow for Multi-omics Data Analysis by Levi Waldron](#workflow-for-multi-omics-data-analysis-by-levi-waldron)
       * [Analysis of ATAC-seq data in R/Bioconductor by Thomas Carroll](#analysis-of-atac-seq-data-in-rbioconductor-by-thomas-carroll)
       * [Microbiome data analysis by the Waldron lab](#microbiome-data-analysis-by-the-waldron-lab)
       * [RNA-seq differential expression with Bioconductor by Davide Risso](#rna-seq-differential-expression-with-bioconductor-by-davide-risso)
@@ -15,6 +16,21 @@ BiocNYC is a group of people with an interest in R/Bioconductor for genomics, ba
 We will attempt to post all materials presented at these meetings, see below for links. It's our intention to post videos as well, although technical issues have gotten in the way of several past meetings.
 
 # Meet-ups
+
+## Workflow for Multi-omics Data Analysis by Levi Waldron
+
+July 20, 2018
+
+This workshop describes an ecosystem of packages and databases for multi-omics data analysis. This includes: 1) MultiAssayExperiment for the representation of multi-omics experiments, 2) SummarizedExperiment for matrix-like datasets, 3) RaggedExperiment for non matrix-like datasets such as SNPs, different types of somatic variants, and segmented copy number, 4) curatedTCGAData, which provides unrestricted 'omics data with merged clinical, pathological, specimen, and subtype data of TCGA as MultiAssayExperiment objects customizable to contain only what you need, 5) TCGAUtils for simplifying common tasks of working TCGA data such as ID-mapping and specimen-type lookup, and 6) MultiAssayExperimentData, under development to provide other integrated multi-omics cancer data starting with 213 cBioPortal datasets.
+
+Materials for tonight's workshop are now available at https://github.com/waldronlab/MultiAssayExperimentWorkshop, with a built version of the workshop at http://rpubs.com/lwaldron/MAEWorkshop. The above give instructions for installing all needed packages for the workshop. Assuming you have already installed Bioconductor (www.bioconductor.org/install), you can do:
+
+```
+> BiocInstaller::biocLite(c("curatedTCGAData", "mirbase.db", "EnsDb.Hsapiens.v86"))
+> BiocInstaller::biocLite("waldronlab/MultiAssayExperimentWorkshop")
+```
+
+Note that the workshop is developed on the development version of Bioconductor, but most (except for some of the TCGAutils functionality) will also work on the release version. 
 
 ## Analysis of ATAC-seq data in R/Bioconductor by Thomas Carroll
 
