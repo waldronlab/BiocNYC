@@ -5,6 +5,7 @@ Table of Contents
    * [Meet-ups](#meet-ups)
       * [Workflow for Multi-omics Data Analysis by Levi Waldron](#workflow-for-multi-omics-data-analysis-by-levi-waldron)
       * [ChIPSeqSpike: ChIP-Seq data scaling according to spike-in control by Dr. Nicolas Descoste](#chipseqspike-chip-seq-data-scaling-according-to-spike-in-control-by-dr-nicolas-descoste)
+      * [Gene set analysis for RNA-seq and microarray gene expression data by Ludwig Geistlinger](#gene-set-analysis-for-rna-seq-and-microarray-gene-expression-data-by-ludwig-geistlinger)
       * [Analysis of ATAC-seq data in R/Bioconductor by Thomas Carroll](#analysis-of-atac-seq-data-in-rbioconductor-by-thomas-carroll)
       * [Microbiome data analysis by the Waldron lab](#microbiome-data-analysis-by-the-waldron-lab)
       * [RNA-seq differential expression with Bioconductor by Davide Risso](#rna-seq-differential-expression-with-bioconductor-by-davide-risso)
@@ -39,6 +40,17 @@ Chromatin Immuno-Precipitation followed by Sequencing (ChIP-Seq) is used to dete
 About the speaker:
 
 This workshop will be led by Dr. Nicolas Descoste, author of the ChIPSeqSpike Bioconductor package. Dr. Descoste earned a PhD in Bioinformatics and Genomics at the Centre d'Immunologie de Marseille-Luminy, France. During his PhD, Dr. Descoste studied fundamental transcriptional processes focusing on RNA Polymerase II c-terminal domain. To better understand the inner workings of the genome in terms of mechanistic expression of genes, he joined Danny Reinberg's research group in 2015 as a postdoctoral fellow at New York University. His research focuses on bioinformatic solutions to the study epigenetic mechanisms and transcriptional regulation.
+
+## Gene set analysis for RNA-seq and microarray gene expression data by Ludwig Geistlinger
+
+March 29, 2018
+
+* https://www.meetup.com/BiocNYC/events/248199742/
+* Materials are in this repo: [Rmd](https://github.com/waldronlab/BiocNYC/blob/master/GeneSetAnalysis.Rmd) and [built html](https://github.com/waldronlab/BiocNYC/blob/master/GeneSetAnalysis.html)
+
+Gene set analysis encompasses a broad range of methods differing greatly in objectives and interpretation of results. This workshop will help participants understand the distinctions between assumptions and hypotheses of existing methods for enrichment analysis of gene expression data. It will provide code and hands-on practice of all necessary steps for differential expression analysis, gene set- and network-based enrichment analysis, and identification of enriched genomic regions and regulatory elements, along with visualization and exploration of results.
+
+About the speaker: Dr. Ludwig Geistlinger is a post-doctoral fellow in the Waldron lab, specializing in enrichment methods and analysis.
 
 ## Analysis of ATAC-seq data in R/Bioconductor by Thomas Carroll
 
