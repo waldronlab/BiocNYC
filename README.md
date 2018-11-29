@@ -3,6 +3,9 @@ Table of Contents
 
    * [About BiocNYC](#about-biocnyc)
    * [Meet-ups](#meet-ups)
+      * [Absolute copy number analysis from tumor-only whole-exome sequencing by Sehyun Oh](#absolute-copy-number-analysis-from-tumor-only-whole-exome-sequencing-by-sehyun-oh)
+      * [Methods for modeling protein-DNA interaction based on high-throughput SELEX data by Harmen J. Bussemaker](#methods-for-modeling-protein-dna-interaction-based-on-high-throughput-selex-data-by-harmen-j-bussemaker)
+      * [Creating and maintaining an R package by Davide Risso](#creating-and-maintaining-an-r-package-by-davide-risso)
       * [Workflow for Multi-omics Data Analysis by Levi Waldron](#workflow-for-multi-omics-data-analysis-by-levi-waldron)
       * [ChIPSeqSpike: ChIP-Seq data scaling according to spike-in control by Dr. Nicolas Descoste](#chipseqspike-chip-seq-data-scaling-according-to-spike-in-control-by-dr-nicolas-descoste)
       * [Gene set analysis for RNA-seq and microarray gene expression data by Ludwig Geistlinger](#gene-set-analysis-for-rna-seq-and-microarray-gene-expression-data-by-ludwig-geistlinger)
@@ -18,6 +21,43 @@ BiocNYC is a group of people with an interest in R/Bioconductor for genomics, ba
 We will attempt to post all materials presented at these meetings, see below for links. It's our intention to post videos as well, although technical issues have gotten in the way of several past meetings.
 
 # Meet-ups
+
+## Absolute copy number analysis from tumor-only whole-exome sequencing by Sehyun Oh
+
+Absolute copy number analysis requires simultaneous inference of purity, ploidy, and loss of heterozygosity. Commonly used algorithms rely on high quality genome-wide data with matched normal profiles, limiting their applicability in clinical settings. In this workshop, I will introduce a benchmark example of absolute copy number variation (CNV) analysis from tumor-only whole exome sequencing (WES) data, followed by a step-by-step tutorial on the analysis workflow. The workflow is based on PureCN, a R/Bioconductor package.
+
+* PureCN paper: https://scfbm.biomedcentral.com/articles/10.1186/s13029-016-0060-z
+* PureCN R/Bioconductor: https://bioconductor.org/packages/release/bioc/html/PureCN.html
+
+About the speaker: Dr. Sehyun Oh is a molecular biologist by training, specialized in DNA double-strand break repair mechanism. As a post-doctoral fellow in the Waldron lab, she is investigating intra-tumoral heterogeneity of ovarian carcinoma subtypes through analysis of DNA and RNA sequencing data.
+
+Materials: https://github.com/shbrief/CNVWorkflow_Meetup
+
+## Methods for modeling protein-DNA interaction based on high-throughput SELEX data by Harmen J. Bussemaker
+
+October 26, 2018
+
+Accurate models for predicting transcription factor (TF) binding are indispensable for analyzing non-coding genomic DNA. In vitro binding assays coupled with deep sequencing (SELEX-seq and HT-SELEX) have been applied on a large scale to profile the binding specificities of hundreds of human TFs. In this talk, we wil discuss a number of R/Bioconductor tools that our lab has developed to analyze such data. First, we will demonstrate how the SELEX package can be used to efficiently construct tables of relative k-mer enrichment. Next, we will show how generalized linear models can be used to model binding specificity over TF footprints of unprecedented length using the SelexGLM package. Finally, we will demonstrate how the NRLBtools package can be used to construct genomic binding affinity landscapes using ultra-accurate sequence-to-affinity models built using our feature-based maximum-likelihood algorithm No Read Left Behind (NRLB; Rastogi et al., PNAS, 2018).
+
+About the speaker:
+
+Harmen J. Bussemaker is a Professor in the Department of Biological Sciences and Department of Systems Biology at Columbia University. His credentials include a Lenfest Distinguished Columbia Faculty Award and a John Simon Guggenheim Foundation Fellowship. Dr. Bussemaker is known for his work aimed at understanding gene regulatory networks based on the integration of genome sequence, transcription factor binding, and gene expression data.
+
+Recording: https://youtu.be/Rp_OU_mMwt8
+
+Materials: http://bussemakerlab.org/tutorials/BiocNYC2018.html
+
+## Creating and maintaining an R package by Davide Risso
+
+September 6, 2018
+
+Do you have a collection of R functions and scripts scattered across different project folders? Do you ever find yourself using over and over the same function that you created? Why not turn your function collection into an R package? Most people think about R packages as a publishing unit, but R packages are a really good way to keep your functions organized, up-do-date, and to enforce reproducibility. Even when you want to keep the package for yourself without ever publishing it! In this hands-on workshop I will show you how to create and maintain your first R package. No previous experience with package development is needed. To get the best out of the workshop, please bring your laptop with the latest version of R already installed.
+
+About the speaker:
+
+Davide Risso is an Assistant Professor in the Division of Biostatistics and Epidemiology, Department of Healthcare Policy and Research, Weill Cornell Medicine. Prof Risso is author and/or maintainer of six Bioconductor packages for the analysis of (single-cell) RNA-seq data.
+
+Recording: https://youtu.be/Io2P7fe88eE
 
 ## Workflow for Multi-omics Data Analysis by Levi Waldron
 
